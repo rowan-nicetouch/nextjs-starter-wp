@@ -1,1 +1,3 @@
-# Next.js Starter Project for WordPress Sites
+# Next.js Starter
+
+For use with sites whose data is stored in WordPress.
