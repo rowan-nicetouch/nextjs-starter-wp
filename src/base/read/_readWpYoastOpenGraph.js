@@ -1,7 +1,7 @@
 'use strict'
 
+import cleanText from 'base/clean/cleanText'
 import cleanUrl from 'base/clean/cleanUrl'
-import { cleanText} from 'base/clean'
 import readWpUrl from 'base/read/readWpUrl'
 
 export default function readWpYoastOpenGraph (aught) {

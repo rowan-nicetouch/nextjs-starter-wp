@@ -1,9 +1,8 @@
 'use strict'
-import _readWpYoastOpenGraph from './_readWpYoastOpenGraph'
-import _readWpYoastRobots from './_readWpYoastRobots'
-import _readWpYoastTwitter from './_readWpYoastTwitter'
-
-import { cleanText } from 'base/clean'
+import _readWpYoastOpenGraph from 'base/read/_readWpYoastOpenGraph'
+import _readWpYoastRobots from 'base/read/_readWpYoastRobots'
+import _readWpYoastTwitter from 'base/read/_readWpYoastTwitter'
+import cleanText from 'base/clean/cleanText'
 
 export default function readWpYoastMetadata (aught) {
   const { description, title, robots } = aught || {}

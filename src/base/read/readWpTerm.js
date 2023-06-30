@@ -1,6 +1,6 @@
 'use strict'
-import readWpUrl from './readWpUrl'
-import { cleanText } from 'base/clean'
+import readWpUrl from 'base/read/readWpUrl'
+import cleanText from 'base/clean/cleanText'
 
 /**
  * Reads data from WordPress term object.

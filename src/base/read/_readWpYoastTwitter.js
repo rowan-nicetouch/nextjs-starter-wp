@@ -1,4 +1,4 @@
-import { cleanText } from 'base/clean'
+import cleanText from 'base/clean/cleanText'
 import cleanUrl from 'base/clean/cleanUrl'
 
 /**
