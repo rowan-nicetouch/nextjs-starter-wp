@@ -1,6 +1,6 @@
 import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 
-describe('cleanWholeNumber', () => {
+describe('cleanWholeNumber()', () => {
 
 /* ========================================================================= */
 /* = Zero Values                                                           = */
