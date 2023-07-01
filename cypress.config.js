@@ -1,6 +1,7 @@
+const path = require('path')
 const { defineConfig } = require('cypress')
 
-module.exports = defineConfig({
+const config = defineConfig({
   component: {
     devServer: {
       framework: 'next',
@@ -13,4 +14,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
-});
+
+})
+
+module.exports = config
