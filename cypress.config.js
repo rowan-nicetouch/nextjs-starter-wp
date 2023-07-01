@@ -1,4 +1,3 @@
-const path = require('path')
 const { defineConfig } = require('cypress')
 
 const config = defineConfig({
