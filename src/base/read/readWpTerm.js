@@ -1,6 +1,6 @@
 'use strict'
+import cleanPlainText from 'base/clean/cleanPlainText'
 import readWpUrl from 'base/read/readWpUrl'
-import cleanText from 'base/clean/cleanText'
 
 /**
  * Reads data from WordPress term object.
@@ -11,9 +11,9 @@ export default function readWpTerm (aught) {
   const output = {
     id: 0,
     link: readWpUrl(aught?.link),
-    name: cleanText(aught?.name),
-    slug: cleanText(aught?.slug),
-    taxonomy: cleanText(aught?.taxonomy),
+    name: cleanPlainText(aught?.name),
+    slug: cleanPlainText(aught?.slug),
+    taxonomy: cleanPlainText(aught?.taxonomy),
     acf: {},
   }
 

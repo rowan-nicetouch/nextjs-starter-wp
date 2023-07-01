@@ -1,6 +1,6 @@
 import ClassList from 'base/ClassList'
 import cleanLinkText from 'base/clean/cleanLinkText'
-import cleanText from 'base/clean/cleanText'
+import cleanPlainText from 'base/clean/cleanPlainText'
 import cleanUrl from 'base/clean/cleanUrl'
 import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 
@@ -44,9 +44,9 @@ export default function readWpMenuItem (aught) {
     linkText: cleanedTitle,
     parentId: cleanWholeNumber(aught?.menu_item_parent),
     position: cleanWholeNumber(aught?.menu_order),
-    target: cleanText(aught?.target),
-    title: cleanText(aught?.attr_title),
-    description: cleanText(aught?.description),
+    target: cleanPlainText(aught?.target),
+    title: cleanPlainText(aught?.attr_title),
+    description: cleanPlainText(aught?.description),
     classes: classes.toString()
   }
 

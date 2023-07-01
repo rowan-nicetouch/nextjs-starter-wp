@@ -9,6 +9,6 @@ import clean from 'base/clean/clean'
  * @param {Mixed} aught - The value to sanitize.
  * @param {String} The sanitized string.
  */
-export default function cleanText (aught) {
+export default function cleanPlainText (aught) {
   return clean(aught, { ALLOWED_TAGS: [] })
 }

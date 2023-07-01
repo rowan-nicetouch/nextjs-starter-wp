@@ -1,4 +1,4 @@
-import cleanText from 'base/clean/cleanText'
+import cleanPlainText from 'base/clean/cleanPlainText'
 import cleanUrl from 'base/clean/cleanUrl'
 
 /**
@@ -17,11 +17,11 @@ export default function readWpYoastTwitter (aught) {
   } = aught || {}
 
 
-  const cleanCard = cleanText(twitter_card)
-  const cleanTitle = cleanText(twitter_title)
-  const cleanDescription = cleanText(twitter_description)
+  const cleanCard = cleanPlainText(twitter_card)
+  const cleanTitle = cleanPlainText(twitter_title)
+  const cleanDescription = cleanPlainText(twitter_description)
   const cleanImage = cleanUrl(twitter_image)
-  const cleanCreator = cleanText(twitter_site)
+  const cleanCreator = cleanPlainText(twitter_site)
 
   const values = [cleanCard, cleanTitle, cleanDescription, cleanImage, cleanCreator]
 

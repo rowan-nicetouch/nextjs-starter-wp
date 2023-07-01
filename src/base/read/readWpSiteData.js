@@ -1,4 +1,4 @@
-import cleanText from 'base/clean/cleanText'
+import cleanPlainText from 'base/clean/cleanPlainText'
 import readWpMenuItem from 'base/read/readWpMenuItem'
 /**
  * Read WordPress site data.
@@ -12,9 +12,9 @@ export default function readWpSiteData (aught) {
   const { charset, language, menus, name } = aught || {}
 
   const output = {
-    charset: cleanText(charset),
-    language: cleanText(language),
-    name: cleanText(name),
+    charset: cleanPlainText(charset),
+    language: cleanPlainText(language),
+    name: cleanPlainText(name),
     menus: (() => {
       const output = {}
       for (const name in menus) {
