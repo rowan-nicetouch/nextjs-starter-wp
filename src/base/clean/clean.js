@@ -10,6 +10,8 @@ import { JSDOM } from 'jsdom'
  * included here for use in library files which require specific rules not
  * represented in the base cleaners.
  *
+ * Safe for use in both client and server components.
+ *
  * @param {Mixed} aught - The value to be sanitized.
  * @param {Object} config - configuration options for DOMPurify.sanitize()
  *   See: https://github.com/cure53/DOMPurify#can-i-configure-dompurify

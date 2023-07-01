@@ -2,14 +2,18 @@ import clean from 'base/clean/clean'
 import { ATTS, TEXT_TAGS } from 'base/clean/values'
 
 /**
- * Clean Text Block.
+ * Clean text block.
  *
- * For rendering of content entered into a multi-line textarea input.
+ * For rendering of content entered into a plain multi-line textarea input.
  *
  * This components will:
  *
  *   1. Convert newlines to `<br>` elements.
- *   2. Allow only links and text tags.
+ *   2. Allow interactive tag: `<a>`.
+ *   3. Allow block-level tag: `<br>`.
+ *   4. Allow block-level tag: `<hr>`.
+ *
+ * @see ./cleanHtml() for processing WYSIWYG inputs.
  */
 export default function cleanTextBlock (aught) {
   const withBreaks = typeof aught === 'string'
@@ -17,7 +21,39 @@ export default function cleanTextBlock (aught) {
     : aught
 
   return clean(withBreaks, {
-    ALLOWED_ATTR: ATTS,
-    ALLOWED_TAGS: ['a', 'br', ...TEXT_TAGS]
+      ALLOWED_ATTR: [
+        'id',
+        'class',
+        'style',
+        'title',
+      ],
+      ALLOWED_TAGS: [
+        'a',
+        'abbr',
+        'b',
+        'bdi',
+        'bdo',
+        'br',
+        'code',
+        'del',
+        'dfn',
+        'em',
+        'hr',
+        'i',
+        'ins',
+        'kbd',
+        'mark',
+        'q',
+        's',
+        'samp',
+        'small',
+        'span',
+        'strong',
+        'sub',
+        'sup',
+        'u',
+        'var',
+        'wbr'
+      ]
   })
 }

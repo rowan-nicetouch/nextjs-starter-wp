@@ -3,12 +3,9 @@
 import clean from 'base/clean/clean'
 
 /**
- * Clean value intended to be rendered as the content of an HTML link element.
- *
- * This function should include all noninteractive, text-based elements
- * suitable for displaying an unbroken line of HTML text.
+ * Clean value intended to be rendered as inline text.
  */
-export default function cleanLinkText (aught) {
+export function cleanTextLine (aught) {
   return clean(aught, {
     ALLOWED_ATTR: [
       'id',
@@ -17,6 +14,7 @@ export default function cleanLinkText (aught) {
       'title',
     ],
     ALLOWED_TAGS: [
+      'a',
       'abbr',
       'b',
       'bdi',
