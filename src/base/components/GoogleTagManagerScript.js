@@ -40,7 +40,7 @@ export default function GoogleTagManagerScript (props) {
     }
   }, [pathname, searchParams])
 
-  return gtmId || (
+  return gtmId && (
     <>
       <noscript>
         <iframe
