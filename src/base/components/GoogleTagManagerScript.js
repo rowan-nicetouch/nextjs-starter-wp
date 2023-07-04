@@ -28,6 +28,11 @@ import { sendPageview } from 'base/gtm'
 export default function GoogleTagManagerScript (props) {
   const { gtmId, id, strategy, ...atts } = props
 
+  // Return early before reandering and effects happen when there is no GTM id.
+  if (!gtmId) {
+    return null
+  }
+
   atts.id = id ? id : 'gtm-script'
   atts.strategy = strategy ? strategy : 'afterInteractive'
 
@@ -40,14 +45,14 @@ export default function GoogleTagManagerScript (props) {
     }
   }, [pathname, searchParams])
 
-  return gtmId && (
+  return (
     <>
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
           height="0"
           width="0"
-          style={{ display: "none", visibility: "hidden" }}
+          style={{ display: 'none', visibility: 'hidden' }}
         />
       </noscript>
       <Script {...atts}>
