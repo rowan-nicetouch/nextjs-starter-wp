@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import GoogleTagManagerScript from 'base/components/GoogleTagManagerScript'
-import GTM_ID from 'base/gtm'
+import { GTM_ID } from 'base/gtm'
 import './globals.css'
 
 export const metadata = {

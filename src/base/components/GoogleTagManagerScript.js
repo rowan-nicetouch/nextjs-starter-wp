@@ -28,7 +28,7 @@ import { sendPageview } from 'base/gtm'
 export default function GoogleTagManagerScript (props) {
   const { gtmId, id, strategy, ...atts } = props
 
-  // Return early before reandering and effects happen when there is no GTM id.
+  // Return early before rendering and effects happen when there is no GTM id.
   if (!gtmId) {
     return null
   }
