@@ -1,8 +1,7 @@
 'use strict'
 
-import cleanPlainText from 'base/clean/cleanPlainText'
 import cleanUrl from 'base/clean/cleanUrl'
-import cleanWholeNumber from 'base/clean/cleanWholeNumber'
+import readWpImage from 'base/read/readWpImage'
 
 /**
  * Read data from an ACF image field.
@@ -22,7 +21,7 @@ import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 export default function readAcfImage (aught) {
   return typeof aught === 'string'
     ? readImageString(aught)
-    : readImageObject(aught)
+    : readWpImage(aught)
 }
 function readImageString (aught) {
   return {
@@ -31,15 +30,5 @@ function readImageString (aught) {
     id: 0,
     src: cleanUrl(aught),
     width: 0
-  }
-}
-function readImageObject (aught) {
-  const { alt, height, id, url, width } = aught || {}
-  return {
-    alt: cleanPlainText(alt),
-    height: cleanWholeNumber(height),
-    id: cleanWholeNumber(id),
-    src: cleanUrl(url),
-    width: cleanWholeNumber(width)
   }
 }

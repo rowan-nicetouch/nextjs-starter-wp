@@ -1,4 +1,6 @@
 'use strict'
+
+import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 import cleanPlainText from 'base/clean/cleanPlainText'
 import readWpUrl from 'base/read/readWpUrl'
 
@@ -9,7 +11,7 @@ import readWpUrl from 'base/read/readWpUrl'
  */
 export default function readWpTerm (aught) {
   const output = {
-    id: 0,
+    id: cleanWholeNumber(aught?.id),
     link: readWpUrl(aught?.link),
     name: cleanPlainText(aught?.name),
     slug: cleanPlainText(aught?.slug),

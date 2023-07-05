@@ -54,7 +54,7 @@ describe('readAcfImage(string)', () => {
     const image = readAcfImage('ABCDEFG')
     expect(image.src).to.equal('')
   })
-  it('Does not rewrite recognized domain..', () => {
+  it('Does not rewrite recognized domain.', () => {
     const url = process.env.NEXT_PUBLIC_WP_URL + '/image.jpg'
     const image = readAcfImage({ url: url })
     expect(image.src).to.equal(url)
