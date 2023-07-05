@@ -5,9 +5,10 @@ import cleanHtml from 'base/clean/cleanHtml'
 import cleanPlainText from 'base/clean/cleanPlainText'
 import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 import cleanWholeNumberArray from 'base/clean/cleanWholeNumberArray'
+
 import readWpDate from 'base/read/readWpDate'
 import readWpUrl from 'base/read/readWpUrl'
-
+import _readAcf from 'base/read/_readAcf'
 import _readWpFeaturedImageFromPost from 'base/read/_readWpFeaturedImageFromPost'
 import _readWpPostTerms from 'base/read/_readWpPostTerms'
 import _readWpRenderedString from 'base/read/_readWpRenderedString'
@@ -24,18 +25,22 @@ import _readWpRenderedString from 'base/read/_readWpRenderedString'
  *   2. Creates array of tag objects.
  *   3. Isolates the first featured media object.
  *
- * Limitations
+ * Considerations:
  *
- *   - This method provides zero support for password-protected posts.
- *   - This method provides zero support for the guid property.
+ *   - Zero support is provided for password-protected posts.
+ *   - Zero support is provided for the "guid" property.
+ *   - The "meta" array will pass through without alteration.
+ *   - The "acf" array will pass through without alteration.
+ *
+ * @todo Add support for author embeds.
  *
  * @param {Object} aught
  */
 export default function readWpPost (aught) {
-  console.log('aught',aught)
   aught = typeof aught === 'object' ? aught : {}
 
   const output = {
+    acf: _readAcf (aught?.acf),
     authorId: cleanWholeNumber(aught?.author),
     author: null,
     categoryIds: cleanWholeNumberArray(aught?.categories),
@@ -52,9 +57,11 @@ export default function readWpPost (aught) {
     format: cleanPlainText(aught?.format),
     id: cleanWholeNumber(aught?.id),
     link: readWpUrl(aught?.link),
+    meta: Array.isArray(aught?.meta) ? aught?.meta : [],
     pingStatus: cleanPlainText(aught?.ping_status),
     slug: cleanPlainText(aught?.slug),
     status: cleanPlainText(aught?.status),
+    sticky: Boolean(aught?.sticky),
     tagIds: cleanWholeNumberArray(aught?.tags),
     tags: [],
     template: cleanPlainText(aught?.template),
@@ -80,17 +87,3 @@ export default function readWpPost (aught) {
 
   return output
 }
-
-/*
-
-TODO
-
-  // EMBEDS
-  "author": 1,
-
-  "sticky": false,
-
-  // These need to be custom - they can be anything
-  "meta": [],
-  "acf": { },
-*/
