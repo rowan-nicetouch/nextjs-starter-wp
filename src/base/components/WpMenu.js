@@ -4,12 +4,27 @@ import { useEffect, useRef, useState } from 'react'
 
 const PATH_SEPERATOR = '/'
 
+/**
+ * WordPress Menu Component.
+ *
+ * @param {Object} props
+ * @param {Array}  props.menuItems
+ * @param {String} props.label Required. A human-readable name for the menu.
+ *   This value will be used to identify this menu in assistive tech.
+ *
+ * @throws {Error} when `props.label` is not a non-empty string.
+ */
 export default function WpMenu (props) {
-  const { menuItems, ...atts } = props
+  const { menuItems, menuLabel, ...atts } = props
   const [ activePath, setActivePath ] = useState('')
   const [ focusPath, setFocusPath ] = useState('')
   const menuRef = useRef()
   const depth = 0
+
+  // Label prop is required.
+  if (typeof menuLabel !== 'string' || menuLabel === '') {
+    throw new Error('The menuLabel prop must be a non-empty string.')
+  }
 
   const updateActivePath = (targetPath) => {
     if (targetPath === activePath) {
@@ -53,7 +68,7 @@ export default function WpMenu (props) {
   }, [focusPath])
 
   return (
-    <nav ref={menuRef} data-menu>
+    <nav ref={menuRef} data-menu aria-label={menuLabel}>
       <ul {...atts} data-menu-depth={depth}>
         {
           menuItems.map(item => {
