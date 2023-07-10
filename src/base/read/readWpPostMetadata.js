@@ -1,5 +1,5 @@
 'use strict'
-import _readWpYoastMetadata from 'base/read/_readWpYoastMetadata'
+import _readWpYoastMetadata from 'base/read/lib/_readWpYoastMetadata'
 
 export default function readWpPostMetadata (post, fallback) {
   const {

@@ -1,7 +1,7 @@
 'use strict'
-import _readWpYoastOpenGraph from 'base/read/_readWpYoastOpenGraph'
-import _readWpYoastRobots from 'base/read/_readWpYoastRobots'
-import _readWpYoastTwitter from 'base/read/_readWpYoastTwitter'
+import _readWpYoastOpenGraph from 'base/read/lib/_readWpYoastOpenGraph'
+import _readWpYoastRobots from 'base/read/lib/_readWpYoastRobots'
+import _readWpYoastTwitter from 'base/read/lib/_readWpYoastTwitter'
 import cleanPlainText from 'base/clean/cleanPlainText'
 
 export default function readWpYoastMetadata (aught) {

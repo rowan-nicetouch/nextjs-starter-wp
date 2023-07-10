@@ -12,7 +12,6 @@ export default function _readWpPostTerms (terms) {
   terms.forEach(group => {
     group = Array.isArray(group) ? group : []
     group.forEach(term => {
-      console.log('term',term)
       term = readWpTerm(term)
       const map = new Map(Object.entries({
         category: output.categories,

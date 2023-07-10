@@ -8,10 +8,10 @@ import cleanWholeNumberArray from 'base/clean/cleanWholeNumberArray'
 
 import readWpDate from 'base/read/readWpDate'
 import readWpUrl from 'base/read/readWpUrl'
-import _readAcf from 'base/read/_readAcf'
-import _readWpFeaturedImageFromPost from 'base/read/_readWpFeaturedImageFromPost'
-import _readWpPostTerms from 'base/read/_readWpPostTerms'
-import _readWpRenderedString from 'base/read/_readWpRenderedString'
+import _readAcf from 'base/read/lib/_readAcf'
+import _readWpFeaturedImageFromPost from 'base/read/lib/_readWpFeaturedImageFromPost'
+import _readWpPostTerms from 'base/read/lib/_readWpPostTerms'
+import _readWpRenderedString from 'base/read/lib/_readWpRenderedString'
 
 /**
  * Read a WordPress Post object.
