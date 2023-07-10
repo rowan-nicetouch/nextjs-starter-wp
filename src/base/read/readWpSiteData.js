@@ -1,5 +1,6 @@
 import cleanPlainText from 'base/clean/cleanPlainText'
-import readWpMenuItem from 'base/read/readWpMenuItem'
+import readWpMenu from 'base/read/readWpMenu'
+
 /**
  * Read WordPress site data.
  *
@@ -19,11 +20,7 @@ export default function readWpSiteData (aught) {
       const output = {}
       for (const name in menus) {
         const menu = menus[name]
-        output[name] = Array.isArray(menu)
-          ? menu.map(item => {
-            return readWpMenuItem(item)
-          })
-          : []
+        output[name] = readWpMenu(menu)
       }
       return output
     })()

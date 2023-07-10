@@ -26,7 +26,7 @@ export default function readWpMenuItem (aught) {
   }
 
   const cleanedId = cleanWholeNumber(aught?.ID)
-  const cleanedUrl = cleanUrl(aught?.url)
+  const cleanedUrl = aught?.url === '#none' ? aught?.url : cleanUrl(aught?.url)
   const cleanedTitle = cleanLinkText(aught?.title)
 
   // Required properties
@@ -47,7 +47,8 @@ export default function readWpMenuItem (aught) {
     target: cleanPlainText(aught?.target),
     title: cleanPlainText(aught?.attr_title),
     description: cleanPlainText(aught?.description),
-    classes: classes.toString()
+    classes: classes.toString(),
+    children: []
   }
 
   return output
