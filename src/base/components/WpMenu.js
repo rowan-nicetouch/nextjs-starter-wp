@@ -28,22 +28,26 @@ export default function WpMenu (props) {
     throw new Error('The menuLabel prop must be a non-empty string.')
   }
 
-  // Close all submenus when the main menu is tabbed out of.
+  // Close all submenus when the main menu is tabbed or clicked out of.
   useEffect(() => {
     const test = (event) => {
-      const isMenuFocused = typeof menuRef?.current?.contains === 'function'
+      const isTargetInMenu = typeof menuRef?.current?.contains === 'function'
         ? menuRef?.current?.contains(event.target)
         : false
 
-      if (!isMenuFocused) {
+      if (!isTargetInMenu) {
         setActivePath(BASE_PATH)
       }
     }
+    window.addEventListener('click', test)
     window.addEventListener('focusin', test)
-    return () => window.removeEventListener('focusin', test)
+    return () => {
+      window.removeEventListener('click', test)
+      window.removeEventListener('focusin', test)
+    }
   }, [])
 
-  // Close an individual submenu when it is tabbed out of.
+  // Close a submenu when it is tabbed out of.
   useEffect(() => {
     const active = expandPath(activePath)
     const focus = expandPath(focusPath)
