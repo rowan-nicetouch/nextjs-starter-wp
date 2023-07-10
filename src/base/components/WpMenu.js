@@ -50,8 +50,6 @@ export default function WpMenu (props) {
     ) {
       setActivePath(expandActivePath(activePath).slice(0, -1).join(PATH_SEPERATOR))
     }
-    console.log('AP', activePath)
-    console.log('FP', focusPath)
   }, [focusPath])
 
   return (
