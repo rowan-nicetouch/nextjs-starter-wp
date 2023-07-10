@@ -2,13 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+const BASE_PATH = '0'
 const PATH_SEPERATOR = '/'
 
 /**
  * WordPress Menu Component.
  *
  * @param {Object} props
- * @param {Array}  props.menuItems
+ * @param {Object} props.menuItems A plain javascript object representing a
+ *   tree of nested menus.
  * @param {String} props.label Required. A human-readable name for the menu.
  *   This value will be used to identify this menu in assistive tech.
  *
@@ -16,7 +18,7 @@ const PATH_SEPERATOR = '/'
  */
 export default function WpMenu (props) {
   const { menuItems, menuLabel, ...atts } = props
-  const [ activePath, setActivePath ] = useState('')
+  const [ activePath, setActivePath ] = useState(BASE_PATH)
   const [ focusPath, setFocusPath ] = useState('')
   const menuRef = useRef()
   const depth = 0
@@ -24,18 +26,6 @@ export default function WpMenu (props) {
   // Label prop is required.
   if (typeof menuLabel !== 'string' || menuLabel === '') {
     throw new Error('The menuLabel prop must be a non-empty string.')
-  }
-
-  const updateActivePath = (targetPath) => {
-    if (targetPath === activePath) {
-      // Toggle a leaf when opened.
-      setActivePath(expandActivePath(activePath).slice(0, -1).join(PATH_SEPERATOR))
-    } else if (activePath.indexOf(targetPath) === 0) {
-      // Toggle an internal node when opened.
-      setActivePath(expandActivePath(activePath).slice(-1).join(PATH_SEPERATOR))
-    } else {
-      setActivePath(targetPath)
-    }
   }
 
   // Close all submenus when the main menu is tabbed out of.
@@ -46,7 +36,7 @@ export default function WpMenu (props) {
         : false
 
       if (!isMenuFocused) {
-        setActivePath('0')
+        setActivePath(BASE_PATH)
       }
     }
     window.addEventListener('focusin', test)
@@ -55,15 +45,12 @@ export default function WpMenu (props) {
 
   // Close an individual submenu when it is tabbed out of.
   useEffect(() => {
-    const active = expandActivePath(activePath)
-    const focus = expandActivePath(focusPath)
-
-    if (
-      activePath !== focusPath &&
-      active.length === focus.length &&
-      active.length > 1
-    ) {
-      setActivePath(expandActivePath(activePath).slice(0, -1).join(PATH_SEPERATOR))
+    const active = expandPath(activePath)
+    const focus = expandPath(focusPath)
+    if (active[1] !== focus[1]) {
+      setActivePath(BASE_PATH)
+    } else if (activePath === focusPath) {
+      setActivePath(active.slice(0, -1).join(PATH_SEPERATOR))
     }
   }, [focusPath])
 
@@ -75,9 +62,9 @@ export default function WpMenu (props) {
             return <WpMenuItem
               activePath={activePath}
               key={item?.id}
-              handleFocus={setFocusPath}
-              handleMenuOpen={updateActivePath}
-              parentPath="0"
+              setFocusPath={setFocusPath}
+              setActivePath={setActivePath}
+              parentPath={BASE_PATH}
               parentDepth={depth}
               {...item}
             />
@@ -92,8 +79,8 @@ function WpMenuItem (props) {
   const {
     activePath,
     children,
-    handleFocus,
-    handleMenuOpen,
+    setFocusPath,
+    setActivePath,
     id,
     linkText,
     parentDepth,
@@ -102,68 +89,77 @@ function WpMenuItem (props) {
   } = props
 
   const depth = parentDepth + 1
+  const handleItemFocus = () => setFocusPath(path)
   const hasChildren = children?.length > 0
+  const isOpen = expandPath(activePath).includes(id)
   const path = parentPath + PATH_SEPERATOR + id
-
-  const isOpen = (() => {
-    const path = expandActivePath(activePath)
-    return path.includes(id)
-  })()
-
-  const submenu = hasChildren
-    ? (
-      <ul
-        className="submenu"
-        data-menu-depth={depth}
-        data-menu-is-open={isOpen}
-      >
-        {children.map(item => {
-          return <WpMenuItem
-            activePath={activePath}
-            key={item.id}
-            handleFocus={handleFocus}
-            handleMenuOpen={handleMenuOpen}
-            parentDepth={depth}
-            parentPath={path}
-            {...item}
-          />
-        })}
-      </ul>
-    )
-    : null
-
-  const handleItemFocus = () => {
-    handleFocus(path)
-  }
 
   return (
     <li>
-      <ControlMenuItem
-        hasChildren={hasChildren}
-        isOpen={isOpen}
-        onFocus={handleItemFocus}
-        onToggle={() => { handleMenuOpen(path) }}
-        linkText={linkText}
-        src={src}
-      />
-      {submenu}
+      <span className="menu-item">
+        <ItemText
+          onFocus={handleItemFocus}
+          linkText={linkText}
+          src={src}
+        />
+        {hasChildren && (<Button
+          isOpen={isOpen}
+          onClose={() => { setActivePath(parentPath) }}
+          onFocus={handleItemFocus}
+          onOpen={() => { setActivePath(path) }}
+        />)}
+      </span>
+
+      {hasChildren && (
+        <ul
+          className="submenu"
+          data-menu-depth={depth}
+          data-menu-is-open={isOpen}
+        >
+          {children.map(item => {
+            return <WpMenuItem
+              activePath={activePath}
+              key={item.id}
+              setFocusPath={setFocusPath}
+              setActivePath={setActivePath}
+              parentDepth={depth}
+              parentPath={path}
+              {...item}
+            />
+          })}
+        </ul>
+      )}
     </li>
   )
 }
 
+function Button (props) {
+  const { isOpen, onClose, onFocus, onOpen } = props
 
-function ControlMenuItem (props) {
-  const { onFocus, onToggle, hasChildren, isOpen, linkText, src } = props
-  const isLinked = Boolean(src) && src !== '#none'
-
-  const button = hasChildren && (
+  const open = (
     <button
-      className='menu-item-button'
+      className='menu-item-button-open'
       type="button"
       onFocus={onFocus}
-      onClick={onToggle}
-    >{isOpen ? 'Close' : 'Open'}</button>
+      onClick={onOpen}
+    >Open</button>
   )
+
+  const close = (
+    <button
+      className='menu-item-button-close'
+      type="button"
+      onFocus={onFocus}
+      onClick={onClose}
+    >Close</button>
+  )
+
+  return isOpen ? close : open
+}
+
+function ItemText (props) {
+  const { onFocus, linkText, src } = props
+  const isLinked = Boolean(src) && src !== '#none'
 
   const link = (
     <a
@@ -181,13 +177,10 @@ function ControlMenuItem (props) {
     >{linkText}</span>
   )
 
-  const text = isLinked ? link : span
-
-  return <span className="menu-item">{text} {button}</span>
+  return isLinked ? link : span
 }
 
-
-function expandActivePath (aught) {
+function expandPath (aught) {
   const path = typeof aught === 'string'
     ? aught.split(PATH_SEPERATOR)
     : []
