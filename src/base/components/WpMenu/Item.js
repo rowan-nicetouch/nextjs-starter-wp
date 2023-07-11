@@ -14,7 +14,8 @@ export default function Item (props) {
     linkText,
     parentDepth,
     parentPath,
-    src
+    src,
+    target
   } = props
 
   const depth = parentDepth + 1
@@ -29,6 +30,7 @@ export default function Item (props) {
         <ItemText
           currentPath={currentPath}
           onFocus={handleItemFocus}
+          linkTarget={target}
           linkText={linkText}
           src={src}
         />

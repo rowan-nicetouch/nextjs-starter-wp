@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export default function ItemText (props) {
-  const { currentPath, onFocus, linkText, src } = props
+  const { currentPath, onFocus, linkTarget, linkText, src } = props
   const isCurrentPage = ((currentPath, src) => {
     const srcPath = src.slice(process.env.NEXT_PUBLIC_URL.length)
     return srcPath === currentPath
@@ -13,6 +13,7 @@ export default function ItemText (props) {
       className="menu-item-text"
       href={src}
       onFocus={onFocus}
+      target={linkTarget ? linkTarget : null}
     >{linkText}</Link>
   )
 
