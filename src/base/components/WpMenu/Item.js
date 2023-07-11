@@ -34,6 +34,7 @@ export default function Item (props) {
         />
         {hasChildren && (<Button
           isOpen={isOpen}
+          linkText={linkText}
           onClose={() => { setActivePath(parentPath) }}
           onFocus={handleItemFocus}
           onOpen={() => { setActivePath(path) }}

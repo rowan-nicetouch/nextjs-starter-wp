@@ -1,23 +1,19 @@
 export default function Button (props) {
-  const { isOpen, onClose, onFocus, onOpen } = props
+  const { isOpen, linkText, onClose, onFocus, onOpen } = props
+  const ariaExpanded = isOpen
+  const onClick = isOpen ? onClose : onOpen
+  const buttonText = isOpen
+    ? 'Show submenu for ' + linkText
+    : 'Hide submenu for ' + linkText
+  const className = isOpen ? 'menu-item-button-close' : 'menu-item-button-open'
 
-  const open = (
+  return (
     <button
-      className='menu-item-button-open'
-      type="button"
+      aria-expanded={ariaExpanded}
+      className={className}
+      onClick={onClick}
       onFocus={onFocus}
-      onClick={onOpen}
-    >Open</button>
-  )
-
-  const close = (
-    <button
-      className='menu-item-button-close'
       type="button"
-      onFocus={onFocus}
-      onClick={onClose}
-    >Close</button>
+    ><span className="visually-hidden">{buttonText}</span></button>
   )
-
-  return isOpen ? close : open
 }
