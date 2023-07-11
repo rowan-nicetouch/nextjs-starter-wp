@@ -2,11 +2,13 @@ import Button from 'base/components/WpMenu/Button'
 import ItemText from 'base/components/WpMenu/ItemText'
 import expandPath from 'base/components/WpMenu/expandPath'
 import makePath from 'base/components/WpMenu/makePath'
+import ClassList from 'base/ClassList'
 
 export default function Item (props) {
   const {
     activePath,
     children,
+    classes,
     currentPath,
     setFocusPath,
     setActivePath,
@@ -18,6 +20,7 @@ export default function Item (props) {
     target
   } = props
 
+  const classList = new ClassList('menu-item', classes)
   const depth = parentDepth + 1
   const handleItemFocus = () => setFocusPath(path)
   const hasChildren = children?.length > 0
@@ -26,7 +29,7 @@ export default function Item (props) {
 
   return (
     <li>
-      <span className="menu-item">
+      <span className={classList}>
         <ItemText
           currentPath={currentPath}
           onFocus={handleItemFocus}
