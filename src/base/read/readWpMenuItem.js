@@ -26,7 +26,19 @@ export default function readWpMenuItem (aught) {
   }
 
   const cleanedId = cleanWholeNumber(aught?.ID)
-  const cleanedUrl = aught?.url === '#none' ? aught?.url : cleanUrl(aught?.url)
+  const cleanedUrl = ((url) => {
+    url = typeof url === 'string' ? url : ''
+
+    if (url === '#none') {
+      return url
+    }
+
+    if (url.indexOf('/') === 0) {
+      url = process.env.NEXT_PUBLIC_URL + url
+    }
+
+    return cleanUrl(url)
+  })(aught?.url)
   const cleanedTitle = cleanLinkText(aught?.title)
 
   // Required properties

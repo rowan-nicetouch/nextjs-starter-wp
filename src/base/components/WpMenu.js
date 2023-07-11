@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const BASE_PATH = '0'
 const PATH_SEPERATOR = '/'
@@ -20,8 +22,11 @@ export default function WpMenu (props) {
   const { menuItems, menuLabel, ...atts } = props
   const [ activePath, setActivePath ] = useState(BASE_PATH)
   const [ focusPath, setFocusPath ] = useState('')
+  const currentPath = usePathname()
   const menuRef = useRef()
   const depth = 0
+
+console.log('currentPath', currentPath)
 
   // Label prop is required.
   if (typeof menuLabel !== 'string' || menuLabel === '') {
@@ -65,6 +70,7 @@ export default function WpMenu (props) {
           menuItems.map(item => {
             return <WpMenuItem
               activePath={activePath}
+              currentPath={currentPath}
               key={item?.id}
               setFocusPath={setFocusPath}
               setActivePath={setActivePath}
@@ -83,6 +89,7 @@ function WpMenuItem (props) {
   const {
     activePath,
     children,
+    currentPath,
     setFocusPath,
     setActivePath,
     id,
@@ -102,6 +109,7 @@ function WpMenuItem (props) {
     <li>
       <span className="menu-item">
         <ItemText
+          currentPath={currentPath}
           onFocus={handleItemFocus}
           linkText={linkText}
           src={src}
@@ -123,6 +131,7 @@ function WpMenuItem (props) {
           {children.map(item => {
             return <WpMenuItem
               activePath={activePath}
+              currentPath={currentPath}
               key={item.id}
               setFocusPath={setFocusPath}
               setActivePath={setActivePath}
@@ -162,26 +171,49 @@ function Button (props) {
 }
 
 function ItemText (props) {
-  const { onFocus, linkText, src } = props
+  const { currentPath, onFocus, linkText, src } = props
+  const isCurrentPage = ((currentPath, src) => {
+    const srcPath = src.slice(process.env.NEXT_PUBLIC_URL.length)
+    return srcPath === currentPath
+  })(currentPath, src)
   const isLinked = Boolean(src) && src !== '#none'
 
   const link = (
-    <a
+    <Link
       className="menu-item-text"
       href={src}
       onFocus={onFocus}
-    >{linkText}</a>
+    >{linkText}</Link>
   )
 
   const span = (
     <span
       className="menu-item-text"
+      data-is-heading=''
       tabIndex="0"
       onFocus={onFocus}
     >{linkText}</span>
   )
 
-  return isLinked ? link : span
+  const currentPageIndicator = (
+    <span
+      className="menu-item-text"
+      data-is-current-page=''
+      tabIndex="0"
+      onFocus={onFocus}
+    >
+      <span class="visually-hidden">Current Page: </span>
+      {linkText}
+    </span>
+  )
+
+  if (isCurrentPage) {
+    return currentPageIndicator
+  } else if (isLinked) {
+    return link
+  } else {
+    return span
+  }
 }
 
 function expandPath (aught) {
