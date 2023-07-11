@@ -47,7 +47,7 @@ export default function Item (props) {
         <ul
           className="submenu"
           data-menu-depth={depth}
-          data-menu-is-open={isOpen}
+          data-menu-is-open={isOpen ? '' : null}
         >
           {children.map(item => {
             return <Item
