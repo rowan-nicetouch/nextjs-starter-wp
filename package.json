@@ -18,7 +18,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "cypress": "^12.16.0",
+    "cypress": "^13.3.0",
     "sass": "^1.63.6"
   }
 }
