@@ -12,7 +12,6 @@ describe('readAcfLink()', () => {
   })
   it('maps valid "target" to "target".', () => {
     const link = readAcfLink({ target: '_blank' })
-    console.log('link',link)
     expect(link.target).to.equal('_blank')
   })
   it('maps valid "title" to "text".', () => {
