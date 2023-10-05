@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import clean from 'base/clean/clean'
 
 describe('clean()', () => {

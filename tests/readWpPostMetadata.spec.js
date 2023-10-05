@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import readWpPostMetadata from 'base/read/readWpPostMetadata'
 
 describe('readWpPostMetadata().title', () => {

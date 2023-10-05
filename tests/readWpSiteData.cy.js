@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import readWpSiteData from 'base/read/readWpSiteData'
 
 describe('readWpSiteData()', () => {

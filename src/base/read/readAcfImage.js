@@ -1,5 +1,3 @@
-'use strict'
-
 import cleanUrl from 'base/clean/cleanUrl'
 import readWpImage from 'base/read/readWpImage'
 

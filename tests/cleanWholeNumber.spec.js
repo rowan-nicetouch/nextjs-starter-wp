@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 
 describe('cleanWholeNumber()', () => {

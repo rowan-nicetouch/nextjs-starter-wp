@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest'
 import readWpMenuItem from 'base/read/readWpMenuItem'
 
 const REQUIRED_PROPS = {
@@ -15,7 +16,8 @@ const DEFAULT_ITEM = {
   target: '',
   title: '',
   description: '',
-  classes: ''
+  classes: '',
+  children: []
 }
 
 describe('readWpMenuItem()', () => {
@@ -29,12 +31,13 @@ describe('readWpMenuItem()', () => {
   })
   it('returns an object when required properties exist.', () => {
     const item = readWpMenuItem(REQUIRED_PROPS)
-    expect(item).to.deep.equal({
+    const expected = {
       ...DEFAULT_ITEM,
       id: 123,
       src: 'https://example.com',
       linkText: 'Example Link',
-    })
+    }
+    expect(item).to.deep.equal(expected)
   })
   it('converts classes to a string.', () => {
     const item = readWpMenuItem({
