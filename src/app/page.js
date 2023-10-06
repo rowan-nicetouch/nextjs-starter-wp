@@ -1,15 +1,7 @@
 import { wpGetPages } from 'base/fetch/wpGetPages'
 import { notFound } from 'next/navigation'
-
-export default async function Home () {
-
-  const page = await getPage()
-  return (
-    <main>
-
-    </main>
-  )
-}
+// import parse from 'html-react-parser'
+import { parse } from 'base/parse'
 
 async function getPage () {
   try {
@@ -19,10 +11,19 @@ async function getPage () {
     }, {
       cache: 'no-cache'
     })
-    console.dir(pages[0], { depth: null })
     return pages[0]
   } catch (error) {
     console.error(error)
     notFound()
   }
+}
+
+export default async function Home () {
+  const page = await getPage()
+  return (
+    <main>
+      <h1>{parse(page.title)}</h1>
+      <div>{parse(page.content)}</div>
+    </main>
+  )
 }
