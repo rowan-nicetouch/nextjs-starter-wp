@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import readWpPost from 'base/read/readWpPost'
+import { readWpPost } from 'base/read/readWpPost'
 
 const DATA_URL = process.env.NEXT_PUBLIC_WP_URL
 const NEXT_URL = process.env.NEXT_PUBLIC_URL
