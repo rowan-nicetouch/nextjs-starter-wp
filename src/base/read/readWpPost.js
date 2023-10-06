@@ -36,7 +36,7 @@ import _readWpRenderedString from 'base/read/lib/_readWpRenderedString'
  *
  * @param {Object} aught
  */
-export default function readWpPost (aught) {
+export function readWpPost (aught) {
   aught = typeof aught === 'object' ? aught : {}
 
   const output = {
