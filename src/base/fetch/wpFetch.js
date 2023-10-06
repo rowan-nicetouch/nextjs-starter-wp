@@ -3,14 +3,15 @@ import _getWpApiUrl from 'base/fetch/_getWpApiUrl'
 /**
  * Fetch from WordPress REST API v2
  *
- * @param {String} endpoint - (required)
+ * @param {String} endpoint - (required) Must include everything to the right
+ *   of `example.com/wp-json`.
  * @param {Mixed} urlParams - (optional) Any value that can safely be passed as
  *   parameter one to the URLSearchParams constructor.
  * @param {Object} fetchOptions - (optional) Passed as parameter 2 to fetch().
  *
  * @return {Promise}
  */
-export default async function wpFetch (endpoint, urlParams, fetchOptions) {
+export async function wpFetch (endpoint, urlParams, fetchOptions) {
   fetchOptions = (() => {
     // Ensure that a revalidation strategy is always present.
     const output = {
