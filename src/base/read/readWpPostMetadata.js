@@ -11,6 +11,7 @@ export default function readWpPostMetadata (post, fallback) {
   } = _readWpYoastMetadata(post?.yoast_head_json)
 
   const output = {
+    metadataBase: process.env.NEXT_PUBLIC_URL,
     title: (() => {
       const t = title || post?.title?.rendered || fallback?.title || ''
       return typeof t === 'string' ? t : ''
