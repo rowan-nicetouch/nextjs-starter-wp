@@ -7,6 +7,7 @@ import cleanWholeNumber from 'base/clean/cleanWholeNumber'
 import cleanWholeNumberArray from 'base/clean/cleanWholeNumberArray'
 
 import readWpDate from 'base/read/readWpDate'
+import readWpPostMetadata from 'base/read/readWpPostMetadata'
 import readWpUrl from 'base/read/readWpUrl'
 import _readAcf from 'base/read/lib/_readAcf'
 import _readWpFeaturedImageFromPost from 'base/read/lib/_readWpFeaturedImageFromPost'
@@ -59,6 +60,7 @@ export function readWpPost (aught) {
     link: readWpUrl(aught?.link),
     meta: Array.isArray(aught?.meta) ? aught?.meta : [],
     pingStatus: cleanPlainText(aught?.ping_status),
+    seo: readWpPostMetadata(aught),
     slug: cleanPlainText(aught?.slug),
     status: cleanPlainText(aught?.status),
     sticky: Boolean(aught?.sticky),
