@@ -1,6 +1,5 @@
 import { wpGetPages } from 'base/fetch/wpGetPages'
 import { notFound } from 'next/navigation'
-// import parse from 'html-react-parser'
 import { parse } from 'base/parse'
 
 async function getPage () {
