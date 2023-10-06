@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vitest": "vitest",
-    "cypress": "cypress open",
-    "cypressEast": "TZ=America/New_York cypress open"
+    "vitest": "vitest"
   },
   "dependencies": {
     "dompurify": "^3.0.3",
@@ -21,7 +19,6 @@
     "vitest": "^0.34.6"
   },
   "devDependencies": {
-    "cypress": "^13.3.0",
     "sass": "^1.63.6"
   }
 }

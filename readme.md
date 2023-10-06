@@ -2,13 +2,11 @@
 
 For use with sites whose data is stored in WordPress.
 
-
 ## Automated Testing
 
-This project uses [Cypress](https://www.cypress.io/) for all automated testing purposes.
-
-Run all component (and unit) tests:
+This project uses [Vitest](https://vitest.dev/) for unit testing. Use the
+following command to run all tests.
 
 ```bash
-npx cypress run --component
+npm run vitest
 ```
