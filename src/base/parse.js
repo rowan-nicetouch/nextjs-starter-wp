@@ -1,16 +1,20 @@
-import htmlReactParse from 'html-react-parser'
+import htmlReactParse, { domToReact } from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
 import readWpUrl from 'base/read/readWpUrl'
 
 export function parse (html) {
-  return htmlReactParse(html, {
+  const options = {
     replace: node => {
       switch (node?.name) {
         case 'a' : {
           const { href, ...atts } = node?.attribs || {}
           const newHref = readWpUrl(href)
-          return <Link href={newHref} {...atts}>{node.children[0].data}</Link>
+          return (
+            <Link href={newHref} {...atts}>
+              {domToReact(node?.children, options)}
+            </Link>
+          )
         }
         case 'img' : {
           const { src, ...atts } = node?.attribs || {}
@@ -21,6 +25,7 @@ export function parse (html) {
           return node
         }
       }
-    }}
-  )
+    }
+  }
+  return htmlReactParse(html, options)
 }
