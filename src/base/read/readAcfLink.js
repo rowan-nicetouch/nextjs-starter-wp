@@ -2,7 +2,7 @@
 
 import cleanLinkText from 'base/clean/cleanLinkText'
 import cleanPlainText from 'base/clean/cleanPlainText'
-import readDataUrl from 'base/read/readDataUrl'
+import readWpUrl from 'base/read/readWpUrl'
 
 /**
  * Read data from an ACF field having a type of "Link".
@@ -21,7 +21,7 @@ import readDataUrl from 'base/read/readDataUrl'
 export default function readAcfLink (link) {
   const { target, title, url } = link || {}
   return {
-    src: readDataUrl(url),
+    src: readWpUrl(url),
     text: cleanLinkText(title),
     target: cleanPlainText(target),
   }

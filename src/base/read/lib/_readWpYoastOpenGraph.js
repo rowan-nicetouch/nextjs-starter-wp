@@ -1,7 +1,7 @@
 'use strict'
 
 import cleanPlainText from 'base/clean/cleanPlainText'
-import cleanUrl from 'base/clean/cleanUrl'
+import readUrl from 'base/read/readUrl'
 import readWpUrl from 'base/read/readWpUrl'
 
 export default function readWpYoastOpenGraph (aught) {
@@ -17,7 +17,7 @@ export default function readWpYoastOpenGraph (aught) {
 
   const output = (() => {
     const title = cleanPlainText(og_title)
-    const url = cleanUrl(og_url)
+    const url = readUrl(og_url)
 
     if (title && url) {
       return {

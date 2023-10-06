@@ -1,5 +1,5 @@
 import cleanPlainText from 'base/clean/cleanPlainText'
-import cleanUrl from 'base/clean/cleanUrl'
+import readUrl from 'base/read/readUrl'
 
 /**
  * Read Yoast Twitter Data.
@@ -17,24 +17,23 @@ export default function readWpYoastTwitter (aught) {
   } = aught || {}
 
 
-  const cleanCard = cleanPlainText(twitter_card)
-  const cleanTitle = cleanPlainText(twitter_title)
-  const cleanDescription = cleanPlainText(twitter_description)
-  const cleanImage = cleanUrl(twitter_image)
-  const cleanCreator = cleanPlainText(twitter_site)
+  const card = cleanPlainText(twitter_card)
+  const title = cleanPlainText(twitter_title)
+  const description = cleanPlainText(twitter_description)
+  const image = readUrl(twitter_image)
+  const creator = cleanPlainText(twitter_site)
 
-  const values = [cleanCard, cleanTitle, cleanDescription, cleanImage, cleanCreator]
-
+  const values = [card, title, description, image, creator]
   if (values.filter(Boolean).length === 0) {
     return null
   }
 
   const output = {
-    card: cleanCard,
-    title: cleanTitle,
-    description: cleanDescription,
-    images: [ cleanImage ],
-    creator: cleanCreator,
+    card,
+    creator,
+    description,
+    title,
+    images: [ image ],
   }
 
   return output

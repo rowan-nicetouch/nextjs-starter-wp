@@ -1,8 +1,8 @@
 import ClassList from 'base/ClassList'
 import cleanLinkText from 'base/clean/cleanLinkText'
 import cleanPlainText from 'base/clean/cleanPlainText'
-import cleanUrl from 'base/clean/cleanUrl'
 import cleanWholeNumber from 'base/clean/cleanWholeNumber'
+import readUrl from 'base/read/readUrl'
 
 /**
  * Read WordPress menu item.
@@ -37,7 +37,7 @@ export default function readWpMenuItem (aught) {
       url = process.env.NEXT_PUBLIC_URL + url
     }
 
-    return cleanUrl(url)
+    return readUrl(url)
   })(aught?.url)
   const cleanedTitle = cleanLinkText(aught?.title)
 

@@ -1,4 +1,4 @@
-import cleanUrl from 'base/clean/cleanUrl'
+import readUrl from 'base/read/readUrl'
 import readWpImage from 'base/read/readWpImage'
 
 /**
@@ -26,7 +26,7 @@ function readImageString (aught) {
     alt: '',
     height: 0,
     id: 0,
-    src: cleanUrl(aught),
+    src: readUrl(aught),
     width: 0
   }
 }
