@@ -17,9 +17,13 @@ export function parse (html) {
           )
         }
         case 'img' : {
-          const { src, ...atts } = node?.attribs || {}
-          const newSrc = readWpUrl(src)
-          return <Image href={newSrc} {...atts} />
+          const { alt, height, src, width, ...orig } = node?.attribs || {}
+          const atts = { alt, height, src, width }
+          if (orig.class) {
+            atts.className = orig.class
+            delete(orig.class)
+          }
+          return <Image {...atts} />
         }
         default : {
           return node
