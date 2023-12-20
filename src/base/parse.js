@@ -8,10 +8,15 @@ export function parse (html) {
     replace: node => {
       switch (node?.name) {
         case 'a' : {
-          const { href, ...atts } = node?.attribs || {}
-          const newHref = readWpUrl(href)
+          const { href, ...orig } = node?.attribs || {}
+          const atts = {
+            href: readWpUrl(href)
+          }
+          if (orig.class) {
+            atts.className = orig.class
+          }
           return (
-            <Link href={newHref} {...atts}>
+            <Link {...atts}>
               {domToReact(node?.children, options)}
             </Link>
           )
@@ -21,7 +26,6 @@ export function parse (html) {
           const atts = { alt, height, src, width }
           if (orig.class) {
             atts.className = orig.class
-            delete(orig.class)
           }
           return <Image {...atts} />
         }
