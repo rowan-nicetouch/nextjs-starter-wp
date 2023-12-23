@@ -1,0 +1,45 @@
+'use strict'
+
+import { clean } from 'base/clean'
+
+/**
+ * Clean value intended to be rendered as the content of an HTML link element.
+ *
+ * This function should include all noninteractive, text-based elements
+ * suitable for displaying an unbroken line of HTML text.
+ */
+export function cleanLinkText (aught:any) : string {
+  return clean(aught, {
+    ALLOWED_ATTR: [
+      'id',
+      'class',
+      'style',
+      'title',
+    ],
+    ALLOWED_TAGS: [
+      'abbr',
+      'b',
+      'bdi',
+      'bdo',
+      'code',
+      'del',
+      'dfn',
+      'em',
+      'i',
+      'ins',
+      'kbd',
+      'mark',
+      'q',
+      's',
+      'samp',
+      'small',
+      'span',
+      'strong',
+      'sub',
+      'sup',
+      'u',
+      'var',
+      'wbr'
+    ]
+  })
+}

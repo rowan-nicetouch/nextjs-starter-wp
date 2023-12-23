@@ -2,7 +2,7 @@
  * Default Page Template
  */
 import { notFound } from 'next/navigation'
-import { wpGetPages } from 'base/fetch/wpGetPages'
+import { wpGetPages } from 'base/fetch'
 import { parse } from 'base/parse'
 
 async function getPage (segment) {

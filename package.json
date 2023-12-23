@@ -19,6 +19,9 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/jsdom": "^21.1.6",
+    "@types/node": "^20.10.5",
     "@types/react": "18.2.45",
     "sass": "^1.63.6",
     "vitest": "^0.34.6"

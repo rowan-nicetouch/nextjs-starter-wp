@@ -1,7 +1,7 @@
 import htmlReactParse, { domToReact } from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
-import readWpUrl from 'base/read/readWpUrl'
+import { readWpUrl } from 'base/read'
 
 export function parse (html) {
   const options = {
